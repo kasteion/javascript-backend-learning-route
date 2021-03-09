@@ -1,0 +1,11 @@
+{
+  "name": "05-closures-and-scope",
+  "version": "1.0.0",
+  "description": "Curso de scopes y closures",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fredy",
+  "license": "ISC"
+}
