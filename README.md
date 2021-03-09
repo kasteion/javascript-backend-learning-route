@@ -7,9 +7,9 @@ Javascript Learning
 3. Fundamentos de Javascript
 4. Curso profesional de Git y GitHub
 5. Curso de Closures y Scope en JavaScript
-6.
-7.
-8.
+6. Curso de JavaScript Engine (V8) y el Navegador
+7. Curso de Asincronismo con JavaScript
+8. Curso de Fundamentos de Node.js
 9.
 10.
 11.
