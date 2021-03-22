@@ -23,6 +23,7 @@ Con las siguiente extensiones:
 - Path Intellisense ?
 - Auto Rename Tag
 - Material Icon Theme
+- NPM support for vs code
 
 # WSL
 
