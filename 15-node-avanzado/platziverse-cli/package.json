@@ -1,0 +1,13 @@
+{
+  "name": "platziverse-cli",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "bin": "platziverse.js",
+  "scripts": {
+    "lint": "standard"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
