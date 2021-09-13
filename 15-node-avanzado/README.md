@@ -122,7 +122,7 @@ La idea sería utilizar aedes como servidor mqtt y almacenar en redis los mensaj
 
 ## Definición de los tipos de mensajes
 
-Antes de empezar con la implementación de nuestro servidor de MQTT debemos definir el tipo de mensajes que vamos a utilizar. 
+Antes de empezar con la implementación de nuestro servidor de MQTT debemos definir el tipo de mensajes que vamos a utilizar.
 
 Crearemos un archivo readme en nuestra carpeta "platziverse-mqtt"
 
@@ -168,7 +168,7 @@ Y creamos los script de en el package.json
 }
 ```
 
-Y ahora instalamos 
+Y ahora instalamos
 
 > npm install --save express debug chalk
 
@@ -195,7 +195,7 @@ El resto ya esta en README de platziverse-web
 Node no sirve solo para hacer aplicaciones web sino que puedo hacer aplicaciones de consola, aplicaciones para dispositivos embevidos, aplicaciones de escritorio, etc.
 
 > mkdir platziverse-cli
-> 
+>
 > cd platziverse-cli
 >
 > npm init
@@ -229,9 +229,9 @@ Vamos a añadir longjohn a las dependencias de desarrollo
 Esto es en platziverse-db/index.js
 
 ```js
-"use strict"
-// Agregamos esta línea al principio del index.js 
-require("longjohn")
+"use strict";
+// Agregamos esta línea al principio del index.js
+require("longjohn");
 ```
 
 A modo de ejemplo
@@ -240,24 +240,25 @@ example.js
 
 ```js
 setTimeout(() => {
-    throw new Error("boom")
-}, 2000)
+  throw new Error("boom");
+}, 2000);
 ```
 
 > node example.js
 
 ```js
-require("longjohn")
+require("longjohn");
 setTimeout(() => {
-    throw new Error("boom")
-}, 2000)
+  throw new Error("boom");
+}, 2000);
 ```
 
 Solo debemos cargar longjohn si el entorno de ejecución es producción.
 
 ```js
-if (process.env.NODE_ENV !== 'production') require('longjohn')
+if (process.env.NODE_ENV !== "production") require("longjohn");
 ```
+
 ## Depurando en Desarrollo con node --inspect
 
 Vamos a utilizar node con el flag inspect
@@ -282,21 +283,21 @@ Dentro VS Code --> Run & Debug allí podemos crear una configuración con el arc
 
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug platziverse-web",
-            "program": "${workspaceRoot}/platziverse-web/server.js"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug platziverse-api",
-            "program": "${workspaceRoot}/platziverse-api/server.js"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug platziverse-web",
+      "program": "${workspaceRoot}/platziverse-web/server.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug platziverse-api",
+      "program": "${workspaceRoot}/platziverse-api/server.js"
+    }
+  ]
 }
 ```
 
@@ -317,28 +318,27 @@ Minimist es para que nos ayude con los parametros.
 setup.js
 
 ```js
-const minimist = require("minimist")
+const minimist = require("minimist");
 
-const args = minimist(process.argv)
+const args = minimist(process.argv);
 
 async function setup() {
-    if (!args.yes) {
-        const answer = await prompt([
-            {
-                type: "confirm",
-                name: "setup",
-                message: "This will destroy your database, are you sure?"
-            }
-        ])
+  if (!args.yes) {
+    const answer = await prompt([
+      {
+        type: "confirm",
+        name: "setup",
+        message: "This will destroy your database, are you sure?",
+      },
+    ]);
 
-        if (!answer.setup) {
-            return console.log("Nothing happened :)")
-        }
+    if (!answer.setup) {
+      return console.log("Nothing happened :)");
     }
+  }
 
-    // Seguimos con nuestros setupo normal ... (el código que ya estaba) para que siga confirando la base de datos.
+  // Seguimos con nuestros setupo normal ... (el código que ya estaba) para que siga confirando la base de datos.
 }
-
 ```
 
 ## Preparando Proyecto para Producción 2
@@ -348,26 +348,26 @@ async function setup() {
 En config.js
 
 ```js
-"use strict"
+"use strict";
 
 module.exports = {
-    endpoint: process.env.API_ENDPOINT || "http://localhost:3000",
-    serverHost: process.env.SERVER_HOST || "http://localhost:8080",
-    apiToken: process.env.API_TOKEN || "my-development-token"
-}
+  endpoint: process.env.API_ENDPOINT || "http://localhost:3000",
+  serverHost: process.env.SERVER_HOST || "http://localhost:8080",
+  apiToken: process.env.API_TOKEN || "my-development-token",
+};
 ```
 
 En el app.js
 
 ```js
-const { serverHost } = require("../config") 
+const { serverHost } = require("../config");
 
 // Y modificamos las peticiones http
 const options = {
-    method: "GET",
-    URL: `${serverHost}/agents/${uuid}`,
-    json: true
-}
+  method: "GET",
+  URL: `${serverHost}/agents/${uuid}`,
+  json: true,
+};
 ```
 
 > npm install envify
@@ -485,26 +485,26 @@ meta/main.yml
 ```yml
 ---
 dependencies:
-    - { role: ANXS.postgresql }
-    - { role: geerlingguy.redis }
+  - { role: ANXS.postgresql }
+  - { role: geerlingguy.redis }
 ```
 
 vars/main.yml
 
 ```yml
 ---
-postgresql_databases: 
-    - name: platziverse
-      owner: platzi
-      hstore: yes
+postgresql_databases:
+  - name: platziverse
+    owner: platzi
+    hstore: yes
 postgresql_users:
-    - name: platzi
-      pass: platzi
-      encrypted: no
+  - name: platzi
+    pass: platzi
+    encrypted: no
 postgresql_user_privileges:
-    - name: platzi
-      db: platziverse
-      priv: "ALL"
+  - name: platzi
+    db: platziverse
+    priv: "ALL"
 ```
 
 tasks/main.yml
@@ -512,14 +512,13 @@ tasks/main.yml
 ```yml
 ---
 - name: Restarting PostgreSQL
-  service: 
-    name=postgresql
+  service: name=postgresql
     state=reloaded
 - name: Restarting Redis
-  service:
-    name=redis
+  service: name=redis
     state=restarted
 ```
+
 ## Probando el database rol con Vagrant
 
 > vagrant init
@@ -546,7 +545,7 @@ Entramos a la máquina de vagrant
 > vagrant ssh
 >
 > sudo su -
-> 
+>
 > cd .ssh
 >
 > vim authorized_keys
@@ -557,7 +556,7 @@ En el archivo authorized_keys puedo pegar multiples llaves públicas y cualquier
 
 Esto es porque había un host con un fingerprint allí... en realidad habría que abrirlo y se puede borrar el host especifico.
 
-> rm ~/.ssh/known_hosts 
+> rm ~/.ssh/known_hosts
 
 Ahora vamos a realizar el playbook básico que ejecuta el rol de base de datos
 
@@ -572,7 +571,7 @@ Creamos el archivo backend.yml
   pre_tasks:
     - name: Install Python 2
       raw: test -e /usr/bin/python || (apt-y update && apt install -y python-minimal)
-    - setup: 
+    - setup:
   roles:
     - database
 ```
@@ -614,16 +613,14 @@ main.yml
 ```yml
 ---
 - name: Downloading Setup Script
-  get_url:
-    url=https://deb.nodesource.com/setup_14.x
+  get_url: url=https://deb.nodesource.com/setup_14.x
     dest=/tmp/install_node_14.sh
     mode=-u=rx,g=rx,o=rx
 - name: Running Setup Script
   command: /tmp/install_node_14.sh
     creates=/etc/apt/sources.list.d/nodesource14.list
 - name: Installing Node.js
-  apt: 
-    update_cache=yes
+  apt: update_cache=yes
     state=latest
     name=nodejs
 ```
@@ -663,8 +660,7 @@ Creo tasks/main.yml
 ---
 - include: deps.yml
 - name: Copy platziverse-db
-  copy: 
-    src=platziverse-db
+  copy: src=platziverse-db
     dest=/usr/local/src
     mode=u=rwx,g=rwx,o=rx
 - name: Run npm install
@@ -719,8 +715,7 @@ tasks/main.yml
 ---
 - include: deps.yml
 - name: Copy platziverse-mqtt
-  copy: 
-    src=platziverse-mqtt
+  copy: src=platziverse-mqtt
     dest=/usr/local/src
     mode=u=rwx,g=rwx,o=rx
 - name: Running npm install
@@ -742,7 +737,7 @@ Y modificamos el playbook de backend
   pre_tasks:
     - name: Install Python 2
       raw: test -e /usr/bin/python || (apt-y update && apt install -y python-minimal)
-    - setup: 
+    - setup:
   roles:
     - database
     - platziverse-mqtt
@@ -773,8 +768,7 @@ Entonces en el tasks/main.yml
 ---
 - include: deps.yml
 - name: Copy platziverse-mqtt
-  copy: 
-    src=platziverse-mqtt
+  copy: src=platziverse-mqtt
     dest=/usr/local/src
     mode=u=rwx,g=rwx,o=rx
 - name: Running npm install
@@ -782,12 +776,10 @@ Entonces en el tasks/main.yml
     chdir=/usr/local/src/platziverse-mqtt
     create=/usr/local/src/platziverse-mqtt/node_modules
 - name: Install systemd script
-  copy: 
-    src=platziverse-mqtt.service
+  copy: src=platziverse-mqtt.service
     dest=/lib/systemd/system
 - name: Start platziverse-mqtt
-  service:
-    name=platziverse-mqtt
+  service: name=platziverse-mqtt
     state=restarted
     enabled=yes
 ```
@@ -796,7 +788,7 @@ Entonces en el tasks/main.yml
 >
 > vagrant ssh
 >
-> sudo su - 
+> sudo su -
 >
 > systemctl status platziverse-mqtt
 
@@ -866,8 +858,7 @@ tasks/main.yml
 ---
 - include: deps.yml
 - name: Copying platziverse-api
-  copy:
-    src=platziverse-api
+  copy: src=platziverse-api
     dest=/usr/local/src
     mode=u=rwx,g=rwx,o=rx
 - name: Running npm install
@@ -875,21 +866,17 @@ tasks/main.yml
     chdir=/usr/local/src/platziverse-api
     creates=/usr/local/src/platziverse-api/node_modules
 - name: Install systemd script
-  copy:
-    src=platziverse-api.service
+  copy: src=platziverse-api.service
     dest=/lib/systemd/system
 - name: Install nginx config
-  copy:
-    src=platziverse-api.conf
+  copy: src=platziverse-api.conf
     dest=/etc/nginx/sites-enabled
 - name: Start platziverse-api
-  service:
-    name=platziverse-api
+  service: name=platziverse-api
     state=restarted
     enabled=yes
 - name: Restart nginx
-  service:
-    name=nginx
+  service: name=nginx
     state=reloaded
 ```
 
@@ -907,8 +894,7 @@ Y el tasks/main.yml
 ---
 - include: deps.yml
 - name: Copy platziverse-agent
-  copy: 
-    src=platziverse-agent
+  copy: src=platziverse-agent
     dest=/usr/local/src
     mode=u=rwx,g=rwx,o=rx
 - name: Run npm install
@@ -975,13 +961,11 @@ Este par de headers son para los web sockets
     proxy_set_header      Upgrade $http_upgrade;
     proxy_set_header      Connection "upgrade";
 
-
 ```yml
 ---
 - include: deps.yml
 - name: Copying platziverse-web
-  copy:
-    src=platziverse-web
+  copy: src=platziverse-web
     dest=/usr/local/src
     mode=u=rwx,g=rwx,o=rx
 - name: Running npm install
@@ -989,21 +973,17 @@ Este par de headers son para los web sockets
     chdir=/usr/local/src/platziverse-web
     creates=/usr/local/src/platziverse-web/node_modules
 - name: Install systemd script
-  copy:
-    src=platziverse-web.service
+  copy: src=platziverse-web.service
     dest=/lib/systemd/system
 - name: Install nginx config
-  copy:
-    src=platziverse-web.conf
+  copy: src=platziverse-web.conf
     dest=/etc/nginx/sites-enabled
 - name: Start platziverse-web
-  service:
-    name=platziverse-web
+  service: name=platziverse-web
     state=restarted
     enabled=yes
 - name: Restart nginx
-  service:
-    name=nginx
+  service: name=nginx
     state=reloaded
 ```
 
@@ -1018,7 +998,7 @@ Y el playbook de backend quedaría así:
   pre_tasks:
     - name: Install Python 2
       raw: test -e /usr/bin/python || (apt-y update && apt install -y python-minimal)
-    - setup: 
+    - setup:
   roles:
     - database
     - platziverse-mqtt
@@ -1036,7 +1016,7 @@ Y crearíamos un nuevo playbook para frontend así:
   pre_tasks:
     - name: Install Python 2
       raw: test -e /usr/bin/python || (apt-y update && apt install -y python-minimal)
-    - setup: 
+    - setup:
   roles:
     - platziverse-web
 ```
@@ -1055,9 +1035,7 @@ Y crearíamos un nuevo playbook para frontend así:
 
 Estamos listos para salir a producción. Utilizando DigitalOcean...
 
-Dos servidores
-    1. Backend: DB, MQTT, API
-    2. Frontend: Web
+Dos servidores 1. Backend: DB, MQTT, API 2. Frontend: Web
 
 En la parte de ssh le colocamos el mismo ssh/deploy que ya habíamos generado.
 
@@ -1081,26 +1059,26 @@ frontend-production ansible_ssh_user=root ansible_ssh_host=45.55.128.174 ansible
 Modificamos nuestro proyecto platziverse-web agregando una nueva variable de entorno en config.js
 
 ```js
-"use strict"
+"use strict";
 
 module.exports = {
-    endpoint: process.env.API_ENDPOINT || "http://localhost:3000",
-    serverHost: process.env.SERVER_HOST || "http://localhost:8080",
-    mqttHost: process.env.MQTT_HOST || "mqtt://localhost",
-    apiToken: process.env.API_TOKEN || "my-development-token"
-}
+  endpoint: process.env.API_ENDPOINT || "http://localhost:3000",
+  serverHost: process.env.SERVER_HOST || "http://localhost:8080",
+  mqttHost: process.env.MQTT_HOST || "mqtt://localhost",
+  apiToken: process.env.API_TOKEN || "my-development-token",
+};
 ```
 
 Y en el server.js
 
 ```js
-const { mqttHost } = require("./config")
+const { mqttHost } = require("./config");
 
 const agent = new PlatziverseAgent({
-    mqtt: {
-        hosts: mqttHost
-    }
-})
+  mqtt: {
+    hosts: mqttHost,
+  },
+});
 ```
 
 Y es en platziverse-web.service en donde tenemos las variables de entorno de la aplicación:
@@ -1139,13 +1117,13 @@ Ejecutamos el agente de ejemplo cambiandole unos parametros:
 
 ```js
 const agent = new PlatziverseAgent({
-    name: "Node.js Reloaded",
-    username: "admin",
-    interval: 1000,
-    mqtt: {
-        host: "mqtt://api.platziverse.space"
-    }
-})
+  name: "Node.js Reloaded",
+  username: "admin",
+  interval: 1000,
+  mqtt: {
+    host: "mqtt://api.platziverse.space",
+  },
+});
 ```
 
 > node example/agent.js
@@ -1159,42 +1137,128 @@ const agent = new PlatziverseAgent({
 :syntax on
 
 ```js
-"use strict"
+"use strict";
 
-const five = require("johnny-five")
-const BeagleBone = require("beaglebone-io")
-const PlatziverseAgent = require("platziverse-agent")
+const five = require("johnny-five");
+const BeagleBone = require("beaglebone-io");
+const PlatziverseAgent = require("platziverse-agent");
 
 const board = new five.Board({
-    io: new BeagleBone()
-})
+  io: new BeagleBone(),
+});
 
 const agent = new PlatziverseAgent({
-    name: "beaglebone",
-    usename: "kasteion",
-    interval: 1000,
-    mqtt: {
-        host: "mqtt://api.platziverse.space"
-    }
-})
+  name: "beaglebone",
+  usename: "kasteion",
+  interval: 1000,
+  mqtt: {
+    host: "mqtt://api.platziverse.space",
+  },
+});
 
-board.on("ready", function() {
-    let temp = 0
-    const sensor = new five.Thermometer({
-        controller: "LM35",
-        pin: 'A0'
-    })
+board.on("ready", function () {
+  let temp = 0;
+  const sensor = new five.Thermometer({
+    controller: "LM35",
+    pin: "A0",
+  });
 
-    agent.addMetric("temperature", function() {
-        return temp
-    })
+  agent.addMetric("temperature", function () {
+    return temp;
+  });
 
-    sensor.on("change", function() {
-        temp = this.celsius
-    })
+  sensor.on("change", function () {
+    temp = this.celsius;
+  });
 
-    agent.connect()
-})
+  agent.connect();
+});
 ```
 
 > sudo node index.js
+
+# TEST
+
+1.  ¿Cómo se inicializa un proyecto Node.js?
+    npm init
+2.  ¿Qué retorna una función async?
+    Una Promesa que resuelve al valor que retorne con return
+3.  ¿Cómo puedo limpiar el sandbox de Sinon después de la ejecución de cada test?
+
+sinon.sandbox.restore()
+
+4.  En Sistemas Operativos tipo UNIX ¿Qué linea debe insertar al inicio del archivo JavaScript para crear un ejecutable con node?
+
+#!/usr/bin/env node 5.
+¿Que propiedad del package.json se utiliza para evitar que un módulo sea publicado?
+
+private: true
+
+6.  ¿Cómo recibo el socket de conexión de socket.io en el cliente?
+
+var socket = io()
+
+7.  ¿Cómo referencío un módulo local en el package.json con npm?
+
+file:../path/to/module
+
+8.  ¿Cómo recibo mensajes en un servidor MQTT con mosca?
+
+server.on('published', handleMessage)
+
+9.  ¿En qué header debo enviar el Token JWT para autenticación?
+
+Authorization: Bearer <token>
+
+10. ¿Qué librería puedo utilizar para realizar pruebas de integración?
+    supertest
+11. ¿Cómo publico mensajes desde un servidor MQTT con mosca?
+
+server.publish({ topic, payload })
+
+12. ¿Qué utilidad me permite buscar errores de estilo y algunos bugs de código?
+    standard
+13. ¿Qué clase de Node.js me permite emitir y escuchar eventos?
+    EventEmitter
+14. Según express-jwt-permissions ¿En que propiedad por defecto debo setear los permisos?
+
+permissions: []
+
+15. ¿Cómo declaro una función async para utilizar async/await?
+
+async function nombre () { } 16.
+¿Cómo puedo probar que un Stub fue llamado sólo una vez?
+
+theStub.calledOnce
+
+17. ¿Qué middleware puedo utilizar para servir archivos estáticos con express?
+
+express.static()
+
+18. ¿Qué condicional puedo usar para no ejecutar código cuando requiero un módulo? (Muy útil para pruebas)
+
+if (!module.parent) {}
+
+19. ¿Qué monitor de procesos utilizamos para desplegar nuestro proyecto a producción?
+    systemd
+20. ¿Qué estructura de datos de ES6 me permite almacenar información de tipo llave - valor?
+    Map
+21. Con blessed ¿Qué función debo ejecutar para re-pintar los componentes en la terminal?
+
+screen.render()
+
+22. ¿Qué comando utilizo para desplegar un playbook ansible a producción?
+
+ansible-playbook -i inventory.ini playbook.yml
+
+23. ¿Con qué función puedo dejar un test en pendiente con Ava.js?
+
+test.todo('the test')
+
+24. ¿Cómo recibo el socket de conexión de socket.io en el servidor?
+
+io.on('connect', socket => {})
+
+25. ¿Qué función JavaScript me permite ejecutar una función múltiples veces cada n milisegundos?
+
+setInterval(fn, n)
