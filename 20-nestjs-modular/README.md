@@ -421,7 +421,7 @@ import { DatabaseModule } from "./database/database.module";
             isGlobal: true,
         }),
         HttpModule,
-        UserMOdule,
+        UserModule,
         ProductsModule,
         DatabaseModule,
     ],

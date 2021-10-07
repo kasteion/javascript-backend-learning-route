@@ -9,8 +9,10 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { BrandsService } from './../services/brands.service';
-import { CreateBrandDto, UpdateBrandDto } from 'src/dto/brand.dto';
+import { CreateBrandDto, UpdateBrandDto } from './../dtos/brand.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('brands')
 @Controller('brands')
 export class BrandsController {
   constructor(private brandsService: BrandsService) {}

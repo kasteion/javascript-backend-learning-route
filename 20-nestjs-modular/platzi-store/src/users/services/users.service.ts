@@ -3,13 +3,21 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { User } from 'src/entities/user.entity';
-import { CreateUserDto, UpdateUserDto } from 'src/dto/user.dto';
+import { User } from './../entities/user.entity';
+import { CreateUserDto, UpdateUserDto } from './../dtos/user.dto';
 import * as bcrypt from 'bcrypt';
+import { ProductsService } from './../../products/services/products.service';
+import { Order } from '../entities/order.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UsersService {
   private counterId = 1;
+
+  constructor(
+    private productsService: ProductsService,
+    private configService: ConfigService,
+  ) {}
 
   private users: User[] = [
     {
@@ -20,6 +28,14 @@ export class UsersService {
     },
   ];
 
+  getKey(): string {
+    return `This is the API_KEY ${this.configService.get(
+      'API_KEY',
+    )}, and this is the DATABASE_NAME ${this.configService.get(
+      'DATABASE_NAME',
+    )}`;
+  }
+
   findOne(username: string): User {
     const user = this.users.find((e) => e.username === username);
     if (!user) throw new UnauthorizedException(`Invalid username or password`);
@@ -29,7 +45,7 @@ export class UsersService {
 
   async create(payload: CreateUserDto) {
     this.counterId += 1;
-    let user = { id: this.counterId, ...payload };
+    const user = { id: this.counterId, ...payload };
     user.password = await bcrypt.hash(user.password, 10);
     this.users.push(user);
     delete user.password;
@@ -55,5 +71,14 @@ export class UsersService {
     //let result = false;
     const result = await bcrypt.compare(password, user.password);
     return result;
+  }
+
+  getOrdersByUser(username: string): Order {
+    const user = this.findOne(username);
+    return {
+      date: new Date(),
+      user,
+      products: this.productsService.findAll(),
+    };
   }
 }

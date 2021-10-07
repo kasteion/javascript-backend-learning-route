@@ -9,13 +9,16 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { ProductsService } from './../services/products.service';
-import { CreateProductDto, UpdateProductDto } from 'src/dto/product.dto';
+import { CreateProductDto, UpdateProductDto } from './../dtos/product.dto';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
+@ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private productService: ProductsService) {}
 
   @Get()
+  @ApiOperation({ summary: 'List of products.' })
   getProducts() {
     return this.productService.findAll();
   }

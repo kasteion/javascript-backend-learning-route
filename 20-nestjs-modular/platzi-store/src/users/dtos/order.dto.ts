@@ -1,12 +1,6 @@
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsPositive,
-  IsArray,
-  ValidateNested,
-} from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
-import { OrderItem } from 'src/entities/order.entity';
+import { IsNotEmpty, IsNumber, IsPositive, IsArray } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { OrderItem } from './../entities/order.entity';
 
 export class CreateOrderDto {
   @IsNumber()

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Category } from 'src/entities/category.entity';
-import { CreateCategoryDto, UpdateCategoryDto } from 'src/dto/category.dto';
+import { Category } from './../entities/category.entity';
+import { CreateCategoryDto, UpdateCategoryDto } from './../dtos/category.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -19,7 +19,7 @@ export class CategoriesService {
   }
 
   findOne(id: number) {
-    let category = this.categories.find((e) => e.id === id);
+    const category = this.categories.find((e) => e.id === id);
     if (!category) throw new NotFoundException(`Brand with id ${id} not found`);
     return category;
   }
