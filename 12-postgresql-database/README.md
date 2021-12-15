@@ -2590,4 +2590,4 @@ Corremos las migraciones
 
 Me parece que en conclusión deberíamos mantener separadas nuestros modelos de las migraciones para que esto no de esta clase de problemas.
 
-Otra cosa es que si es el primer release, en realidad lo que deberíamos tener una sola migración inicial entonces lo otro que se podría hacer es crear una sola migración con toda la estructura inicial del proyecto
+otra cosa es que si es el primer release, en realidad lo que deberíamos tener una sola migración inicial entonces lo otro que se podría hacer es crear una sola migración con toda la estructura inicial del proyecto.
