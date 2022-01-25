@@ -155,4 +155,46 @@ init()
 
 ## Autenticación de usuarios - Cookies y estado
 
-##
+## Manejando errores
+
+## Visualización de errores
+
+## Controlar el error 404 en Inert y el error de validación
+
+## Repaso - Creación del modelo y controlador para preguntas
+
+## Repaso - Creación de las rutas para crear preguntas
+
+## Listar las últimas preguntas en el home
+
+# Aplicación de conceptos avanzados
+
+## Enrutamiento avanzado - visualizando una pregunta
+
+## Enrutamiento avanzado - respondiendo una pregunta
+
+## Generando la lógica de la plantilla según si es creador o contibuidor
+
+## Métodos de servidor - respuesta correcta
+
+## Usando métodos de servidor
+
+## Manejo del caché - Agregando el home al caché
+
+## Procesamiento de archivos - Aceptando imágenes
+
+## Logging con Good - Monitoreando el servidor
+
+## Creación de plugins - Teoría
+
+## Creación de plugins - Implementando un API REST
+
+## Estrategias de autenticación - Asegurando el API REST
+
+## Seguridad básica - Asegurando el servidor contra XSS
+
+# Herramientas de desarrollo
+
+## Depuración del proyecto
+
+## Ecosistema de Hapi

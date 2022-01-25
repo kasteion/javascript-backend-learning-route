@@ -1,4 +1,4 @@
-parasails.registerPage("homepage", {
+parasails.registerPage('homepage', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
@@ -14,7 +14,7 @@ parasails.registerPage("homepage", {
   },
   mounted: async function () {
     this._setHeroHeight();
-    console.log("Hello World");
+    console.log('Hello World');
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
@@ -23,13 +23,13 @@ parasails.registerPage("homepage", {
   methods: {
     clickHeroButton: async function () {
       // Scroll to the 'get started' section:
-      $("html, body").animate(
+      $('html, body').animate(
         {
           scrollTop: this.$find('[purpose="scroll-destination"]').offset().top,
         },
         500
       );
-      console.log("clicked");
+      console.log('clicked');
     },
 
     // Private methods not tied to a particular DOM event are prefixed with _
@@ -39,7 +39,7 @@ parasails.registerPage("homepage", {
       var heightToSet = $(window).height();
       heightToSet = Math.max(heightToSet, 500); //« ensure min height of 500px - header height
       heightToSet = Math.min(heightToSet, 1000); //« ensure max height of 1000px - header height
-      $hero.css("min-height", heightToSet - headerHeight + "px");
+      $hero.css('min-height', heightToSet - headerHeight + 'px');
     },
   },
 });
