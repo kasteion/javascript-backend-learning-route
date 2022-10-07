@@ -1,0 +1,56 @@
+<div id="available-things" v-cloak>
+  <h1>Things</h1>
+  <p>View available items to borrow, or upload your own things.</p>
+  <button>TODO</button>
+
+  <ul>
+    <li @click="clickThing(1)">Sweet Red Drill</li>
+    <li @click="clickThing(2)">Rad Mountain Bike</li>
+  </ul>
+  <!-- <h1>TODO: Implement this page.</h1>
+  <p>(See also <em>assets/styles/pages/thigs/available-things.less</em>, <em>assets/js/pages/thigs/available-things.page.js</em>, and <em>api/controllers/thigs/view-available-things.js</em>.)</p> -->
+
+  <% /* "Confirm Delete Thing" Modal */ %>
+
+  <modal
+    v-if="confirmDeleteThingModalOpen && selectedThing"
+    v-cloak
+    key="delete"
+    @close="closeDeleteThingMOdal()"
+  >
+    <ajax-form
+      action="destroyOneThing"
+      :syncing.sync="syncing"
+      :cloud-error.sync="cloudError"
+      :handle-parsing="handleParsingDeleteThingForm"
+      @submitted="submittedDeleteThingForm()"
+    >
+      <div class="modal-header">
+        <h5 class="modal-title">Remove this item?</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure you want to remove this
+          {{ selectedThing.label || 'item' }}?
+        </p>
+        <p>This item will no longer be available to share with friends.</p>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">
+          Nevermind
+        </button>
+        <button type="submit" class="btn btn-danger ml-1">Remove</button>
+      </div>
+    </ajax-form>
+  </modal>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */
+exposeLocalsToBrowser() %>
